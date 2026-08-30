@@ -151,7 +151,7 @@
             <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-20 h-20 bg-gradient-to-tr from-cyan-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/30 border border-white/20">
                 <svg class="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
             </div>
-            
+
             <div class="mt-6">
                 <h3 class="text-2xl font-bold tracking-wider font-orbitron text-white">HUMAN VERIFICATION</h3>
                 <p class="text-xs text-slate-400 mt-2">Click the interactive verification badge below to authenticate and enter the portal.</p>
@@ -162,7 +162,7 @@
                 <button id="verify-action-btn" class="relative group w-24 h-24 rounded-2xl bg-slate-950 border-2 border-slate-700 hover:border-neonCyan flex items-center justify-center shadow-inner shadow-black transition-all duration-300 cursor-pointer overflow-hidden">
                     <!-- Glow background on hover -->
                     <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    
+
                     <!-- Default Check Icon before click -->
                     <svg id="default-check-icon" class="w-10 h-10 text-slate-500 group-hover:text-neonCyan transition-colors duration-300 transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
@@ -183,7 +183,7 @@
 
     <!-- MAIN HOMEPAGE CONTENT -->
     <div id="main-content" class="opacity-0 transition-opacity duration-1000 bg-darkBg bg-grid">
-        
+
         <!-- HEADER / HERO -->
         <header class="relative border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40">
             <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -196,11 +196,14 @@
                         <p class="text-[10px] text-slate-400 uppercase tracking-widest">Futuristic Server Solutions</p>
                     </div>
                 </div>
-                <div>
-                    <a href="https://discord.gg/HxNsutz25" target="_blank" class="flex items-center gap-2 px-5 py-2.5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold text-sm rounded-xl shadow-lg shadow-[#5865F2]/20 transition-all duration-300 transform hover:-translate-y-0.5">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.011c3.927 1.793 8.18 1.793 12.061 0a0.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a0.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a0.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-                        <span>Join Discord</span>
-                    </a>
+                <div class="flex items-center gap-3">
+                    <button onclick="openTicketModal()" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-bold text-sm rounded-xl shadow-lg shadow-cyan-500/20 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer font-orbitron">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                        <span>Open Ticket</span>
+                    </button>
+                    <button onclick="openStaffModal()" class="flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white font-semibold text-sm rounded-xl transition-all duration-300 cursor-pointer font-orbitron">
+                        <span>Staff Portal</span>
+                    </button>
                 </div>
             </div>
         </header>
@@ -221,9 +224,9 @@
                     <a href="#packages" id="explore-btn" class="px-8 py-4 bg-neonCyan text-slate-950 font-bold uppercase tracking-wider rounded-xl font-orbitron hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/20 cursor-pointer">
                         Explore Packages
                     </a>
-                    <a href="https://discord.gg/HxNsutz25" target="_blank" class="px-8 py-4 bg-slate-900 border border-slate-700 hover:border-slate-500 text-white font-bold uppercase tracking-wider rounded-xl font-orbitron transition-all">
-                        Contact via Discord
-                    </a>
+                    <button onclick="openTicketModal()" class="px-8 py-4 bg-slate-900 border border-slate-700 hover:border-slate-500 text-white font-bold uppercase tracking-wider rounded-xl font-orbitron transition-all cursor-pointer">
+                        Create Ticket
+                    </button>
                 </div>
             </div>
             <!-- Glow background blob -->
@@ -238,7 +241,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                
+
                 <!-- Basic Package -->
                 <div class="bg-cardBg border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-neon hover:-translate-y-1 relative group">
                     <div>
@@ -248,7 +251,7 @@
                         </div>
                         <h3 class="text-xl font-bold font-orbitron text-white mb-2">Basic Package</h3>
                         <p class="text-sm text-slate-400 mb-6">A solid foundation for any SMP server.</p>
-                        
+
                         <div class="space-y-3 mb-6">
                             <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Includes:</p>
                             <ul class="space-y-2.5 text-sm text-slate-300">
@@ -268,9 +271,9 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="https://discord.gg/HxNsutz25" target="_blank" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white text-center font-bold rounded-xl font-orbitron text-sm transition-all block">
+                    <button onclick="selectPackage('Basic Package ($10)')" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white text-center font-bold rounded-xl font-orbitron text-sm transition-all block cursor-pointer">
                         Select Basic
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Intermediate Package -->
@@ -285,7 +288,7 @@
                         </div>
                         <h3 class="text-xl font-bold font-orbitron text-white mb-2">Intermediate</h3>
                         <p class="text-sm text-slate-400 mb-6">Everything in Basic, plus powerful expansion tools.</p>
-                        
+
                         <div class="space-y-3 mb-6">
                             <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Includes Basic +:</p>
                             <ul class="space-y-2.5 text-sm text-slate-300">
@@ -307,9 +310,9 @@
                             </div>
                         </div>
                     </div>
-                    <a href="https://discord.gg/HxNsutz25" target="_blank" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 text-center font-bold rounded-xl font-orbitron text-sm transition-all block shadow-lg shadow-cyan-500/20">
+                    <button onclick="selectPackage('Intermediate Package ($15)')" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 text-center font-bold rounded-xl font-orbitron text-sm transition-all block shadow-lg shadow-cyan-500/20 cursor-pointer">
                         Select Intermediate
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Extreme Package -->
@@ -321,22 +324,22 @@
                         </div>
                         <h3 class="text-xl font-bold font-orbitron text-white mb-2">Extreme Package</h3>
                         <p class="text-sm text-slate-400 mb-6">Everything in Basic & Intermediate, plus high-tier setups.</p>
-                        
+
                         <div class="space-y-3 mb-6">
                             <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Includes All Previous +:</p>
                             <ul class="space-y-2.5 text-sm text-slate-300">
                                 <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Full Permissions Setup</li>
                                 <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Advanced Staff Panels</li>
                                 <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Additional Premium Plugins</li>
-                                <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Custom Discord Server Setup</li>
+                                <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Custom Ticket System Setup</li>
                                 <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Hand-Coded Custom Tebex Store</li>
                                 <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Extra Custom Features</li>
                             </ul>
                         </div>
                     </div>
-                    <a href="https://discord.gg/HxNsutz25" target="_blank" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white text-center font-bold rounded-xl font-orbitron text-sm transition-all block">
+                    <button onclick="selectPackage('Extreme Package ($25)')" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white text-center font-bold rounded-xl font-orbitron text-sm transition-all block cursor-pointer">
                         Select Extreme
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Custom SMP Package -->
@@ -348,7 +351,7 @@
                         </div>
                         <h3 class="text-xl font-bold font-orbitron text-white mb-2">Custom SMP</h3>
                         <p class="text-sm text-slate-400 mb-6">Need something unique? Build your own package!</p>
-                        
+
                         <div class="space-y-3 mb-6">
                             <p class="text-xs uppercase tracking-wider text-slate-500 font-bold">Examples Include:</p>
                             <ul class="space-y-2 text-xs text-slate-300">
@@ -360,168 +363,34 @@
                                 <li class="flex items-center gap-2"><span class="text-purple-400 font-bold">•</span> Server Optimization & Add-ons</li>
                             </ul>
                         </div>
-                        <p class="text-[11px] text-slate-400 italic mb-4">Prices vary depending on project complexity. Contact for a quote.</p>
+                        <p class="text-[11px] text-slate-400 italic mb-4">Prices vary depending on project complexity. Request a quote via ticket.</p>
                     </div>
-                    <a href="https://discord.gg/HxNsutz25" target="_blank" class="w-full py-3 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-purple-300 text-center font-bold rounded-xl font-orbitron text-sm transition-all block">
+                    <button onclick="selectPackage('Custom Quote / Tailored')" class="w-full py-3 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-purple-300 text-center font-bold rounded-xl font-orbitron text-sm transition-all block cursor-pointer">
                         Request Quote
-                    </a>
+                    </button>
                 </div>
 
             </div>
         </section>
 
-        <!-- WHY CHOOSE ME & CUSTOM QUOTE CALLOUT -->
-        <section class="py-16 px-6 max-w-7xl mx-auto bg-darkBg">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                
-                <!-- Why Choose Me -->
-                <div class="bg-cardBg border border-slate-800 p-8 rounded-2xl relative">
-                    <h3 class="text-2xl font-bold font-orbitron text-white mb-6 flex items-center gap-3">
-                        <span class="w-3 h-3 bg-neonCyan rounded-full shadow-lg shadow-cyan-500"></span>
-                        Why Choose Me?
-                    </h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold shrink-0">✓</div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Professional server setups</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Built cleanly using industry-standard configurations.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold shrink-0">✓</div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Clean, optimized configurations</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Zero unnecessary lag, highly tuned performance for peak player counts.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold shrink-0">✓</div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Fast turnaround times</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Get your server launched and operational without the long wait.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold shrink-0">✓</div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Custom features available</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Tailored mechanics built precisely around your vision.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold shrink-0">✓</div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Support after delivery</h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Ongoing assistance to ensure your setup runs smoothly post-launch.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Custom Idea Callout & Discord Banner -->
-                <div class="space-y-6">
-                    <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 p-8 rounded-2xl relative">
-                        <blockquote class="text-slate-300 text-base italic leading-relaxed relative z-10">
-                            "Have an idea that's not listed? I'm happy to build a custom package tailored to your server."
-                        </blockquote>
-                        <div class="mt-6 flex items-center justify-between">
-                            <span class="text-xs uppercase tracking-widest text-slate-500 font-orbitron">Let's Talk</span>
-                            <a href="https://discord.gg/HxNsutz25" target="_blank" class="text-xs font-bold text-neonCyan hover:underline font-orbitron">Contact on Discord →</a>
-                        </div>
-                    </div>
-
-                    <div class="bg-gradient-to-r from-[#5865F2]/20 via-slate-900 to-slate-900 border border-[#5865F2]/30 p-6 rounded-2xl flex items-center justify-between">
-                        <div>
-                            <h4 class="font-orbitron font-bold text-white text-sm">READY TO LAUNCH YOUR SERVER?</h4>
-                            <p class="text-xs text-slate-400 mt-1">Join the community Discord server for quick quotes & support.</p>
-                        </div>
-                        <a href="https://discord.gg/HxNsutz25" target="_blank" class="px-5 py-3 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-xs uppercase tracking-wider rounded-xl font-orbitron shadow-md transition-all shrink-0">
-                            Join Discord
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- FAQ & TESTIMONIALS SECTION -->
+        <!-- LIVE DEVELOPMENT REQUESTS SECTION (FROM FIREBASE) -->
         <section class="py-16 px-6 max-w-7xl mx-auto border-t border-slate-800/80 bg-darkBg">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                
-                <!-- Interactive FAQ -->
+            <div class="flex justify-between items-center mb-8">
                 <div>
-                    <div class="mb-8">
-                        <span class="text-xs uppercase tracking-widest text-neonCyan font-orbitron font-bold">Got Questions?</span>
-                        <h3 class="text-2xl font-extrabold font-orbitron text-white mt-1">Frequently Asked Questions</h3>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <!-- FAQ Item 1 -->
-                        <div class="bg-cardBg border border-slate-800 rounded-xl overflow-hidden transition-all">
-                            <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center font-orbitron font-bold text-sm text-white hover:text-neonCyan transition-colors cursor-pointer">
-                                <span>How long does setup take?</span>
-                                <span class="transform transition-transform duration-300 text-neonCyan font-bold text-lg">+</span>
-                            </button>
-                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-sm text-slate-400">
-                                <p class="pb-4">Basic packages are usually delivered within 24–48 hours. Intermediate and Extreme packages range from 2 to 4 days depending on custom configurations and Tebex setups.</p>
-                            </div>
-                        </div>
-
-                        <!-- FAQ Item 2 -->
-                        <div class="bg-cardBg border border-slate-800 rounded-xl overflow-hidden transition-all">
-                            <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center font-orbitron font-bold text-sm text-white hover:text-neonCyan transition-colors cursor-pointer">
-                                <span>Do I need to pay for a server subscription?</span>
-                                <span class="transform transition-transform duration-300 text-neonCyan font-bold text-lg">+</span>
-                            </button>
-                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-sm text-slate-400">
-                                <p class="pb-4">No, but we would ultimately consider you using Folium hosting as its the cheapest option. If not use MC server host the free option, but creativity may be limited.</p>
-                            </div>
-                        </div>
-
-                        <!-- FAQ Item 3 -->
-                        <div class="bg-cardBg border border-slate-800 rounded-xl overflow-hidden transition-all">
-                            <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center font-orbitron font-bold text-sm text-white hover:text-neonCyan transition-colors cursor-pointer">
-                                <span>Is support included after delivery?</span>
-                                <span class="transform transition-transform duration-300 text-neonCyan font-bold text-lg">+</span>
-                            </button>
-                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 text-sm text-slate-400">
-                                <p class="pb-4">Yes! Every package includes post-delivery support to ensure your server files, configs, and web stores run seamlessly without bugs.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <span class="text-xs uppercase tracking-widest text-neonCyan font-orbitron font-bold">Live Feed</span>
+                    <h3 class="text-2xl font-extrabold font-orbitron text-white mt-1">Active Development Requests</h3>
                 </div>
+                <button onclick="loadRequests()" class="px-4 py-2 bg-slate-900 border border-slate-700 hover:border-cyan-500 text-xs font-orbitron text-cyan-400 rounded-xl transition-all cursor-pointer flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Refresh Feed
+                </button>
+            </div>
 
-                <!-- Client Reviews / Trust Badges -->
-                <div>
-                    <div class="mb-8">
-                        <span class="text-xs uppercase tracking-widest text-emerald-400 font-orbitron font-bold">Social Proof</span>
-                        <h3 class="text-2xl font-extrabold font-orbitron text-white mt-1">What Server Owners Say</h3>
-                    </div>
-
-                    <div class="space-y-4">
-                        <!-- Review 1 -->
-                        <div class="bg-cardBg border border-slate-800 p-6 rounded-xl relative">
-                            <div class="flex items-center gap-1 text-yellow-400 text-sm mb-3">★★★★★</div>
-                            <p class="text-sm text-slate-300 italic">"Clean configurations, zero lag, and the custom store setup blew my players away. Absolute professional work!"</p>
-                            <div class="mt-4 flex items-center justify-between text-xs text-slate-500 font-orbitron">
-                                <span>SMP Network Owner</span>
-                                <span class="text-emerald-400">Extreme Package</span>
-                            </div>
-                        </div>
-
-                        <!-- Review 2 -->
-                        <div class="bg-cardBg border border-slate-800 p-6 rounded-xl relative">
-                            <div class="flex items-center gap-1 text-yellow-400 text-sm mb-3">★★★★★</div>
-                            <p class="text-sm text-slate-300 italic">"Turnaround time was insanely fast. Had our custom spawn, crates, and staff panels up in under a day."</p>
-                            <div class="mt-4 flex items-center justify-between text-xs text-slate-500 font-orbitron">
-                                <span>Survival Server Admin</span>
-                                <span class="text-cyan-400">Intermediate Package</span>
-                            </div>
-                        </div>
-                    </div>
+            <div id="requests-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated dynamically via JS from Firebase -->
+                <div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-500 text-sm col-span-full">
+                    Loading development requests from Firebase...
                 </div>
-
             </div>
         </section>
 
@@ -530,16 +399,96 @@
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p>&copy; 2026 Minecraft SMP Development. All rights reserved.</p>
                 <div class="flex items-center gap-6">
-                    <a href="https://discord.gg/HxNsutz25" target="_blank" class="hover:text-neonCyan transition-colors">Discord Community</a>
-                    <a href="#packages" class="hover:text-neonCyan transition-colors">Packages</a>
+                    <button onclick="openTicketModal()" class="hover:text-neonCyan transition-colors cursor-pointer">Create Ticket</button>
+                    <button onclick="openStaffModal()" class="hover:text-neonCyan transition-colors cursor-pointer">Staff Portal</button>
                 </div>
             </div>
         </footer>
 
     </div>
 
+    <!-- TICKET & CHAT SYSTEM MODAL -->
+    <div id="ticket-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
+        <div class="relative w-full max-w-2xl mx-4 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[85vh] fade-scale-in">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-neonCyan animate-pulse"></div>
+                    <h3 class="font-orbitron font-bold text-white text-base">SUPPORT & DEVELOPMENT TICKET</h3>
+                </div>
+                <button onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-xl font-bold cursor-pointer">&times;</button>
+            </div>
+
+            <!-- Account Authentication Bar -->
+            <div id="auth-bar" class="px-6 py-3 bg-slate-950/60 border-b border-slate-800 flex items-center justify-between text-xs">
+                <span id="auth-status" class="text-slate-400">Account: <strong class="text-neonCyan" id="current-user-display">Not Logged In</strong></span>
+                <button onclick="promptAccountSetup()" class="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 text-neonCyan font-orbitron rounded-lg hover:bg-cyan-500/20 cursor-pointer">Change Account</button>
+            </div>
+
+            <!-- Chat & Bot Interface Body -->
+            <div id="chat-container" class="flex-1 p-6 overflow-y-auto space-y-4">
+                <!-- Initial Bot Message populated via JS -->
+            </div>
+
+            <!-- Chat Input Footer -->
+            <div class="p-4 bg-slate-950 border-t border-slate-800">
+                <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex gap-3">
+                    <input type="text" id="chat-input" placeholder="Type your response here..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-neonCyan transition-colors" autocomplete="off" required>
+                    <button type="submit" class="px-6 py-3 bg-neonCyan text-slate-950 font-bold font-orbitron rounded-xl hover:bg-cyan-400 transition-all cursor-pointer">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- STAFF PORTAL MODAL -->
+    <div id="staff-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden">
+        <div class="relative w-full max-w-4xl mx-4 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[85vh] fade-scale-in">
+            <!-- Header -->
+            <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <h3 class="font-orbitron font-bold text-white text-base">STAFF PORTAL DASHBOARD</h3>
+                </div>
+                <button onclick="closeStaffModal()" class="text-slate-400 hover:text-white text-xl font-bold cursor-pointer">&times;</button>
+            </div>
+
+            <!-- PIN Entry View -->
+            <div id="staff-pin-view" class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+                <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <h4 class="font-orbitron font-bold text-xl text-white mb-2">ENTER STAFF PIN</h4>
+                <p class="text-xs text-slate-400 mb-6 max-w-sm">Please enter the 4-digit security PIN to access development tickets and management controls.</p>
+                
+                <form onsubmit="verifyStaffPin(event)" class="flex flex-col gap-4 w-full max-w-xs">
+                    <input type="password" id="staff-pin-input" maxlength="4" placeholder="••••" class="bg-slate-950 border border-slate-700 text-center tracking-widest text-2xl font-orbitron rounded-xl py-3 text-neonCyan focus:outline-none focus:border-neonCyan" required>
+                    <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold font-orbitron rounded-xl transition-all cursor-pointer">Authenticate</button>
+                </form>
+                <p id="pin-error" class="text-red-400 text-xs mt-3 h-4"></p>
+            </div>
+
+            <!-- Staff Dashboard View (Hidden until PIN correct) -->
+            <div id="staff-dashboard-view" class="flex-1 p-6 overflow-y-auto hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h4 class="font-orbitron font-bold text-white text-lg">Incoming Tickets & Requests</h4>
+                        <p class="text-xs text-slate-400">Manage client submissions stored directly in Firebase.</p>
+                    </div>
+                    <button onclick="loadStaffRequests()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-orbitron text-white rounded-xl transition-all cursor-pointer">Refresh List</button>
+                </div>
+
+                <div id="staff-tickets-list" class="space-y-4">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- FULL COMBINED JAVASCRIPT BLOCK -->
     <script>
+        const FIREBASE_URL = "https://mcdevelopment-default-rtdb.firebaseio.com/tickets.json";
+
+        // Verification Modal logic
         const verifyBtn = document.getElementById('verify-action-btn');
         const defaultCheckIcon = document.getElementById('default-check-icon');
         const successSvg = document.getElementById('success-svg');
@@ -554,60 +503,306 @@
             if (isVerified) return;
             isVerified = true;
 
-            // Hide standard check icon, show success check animation SVG
             defaultCheckIcon.classList.add('hidden');
             successSvg.classList.remove('hidden');
             verifyBtn.classList.add('border-neonCyan', 'shadow-neon', 'animate-scale-check');
-            
+
             statusText.textContent = "AUTHENTICATED";
             statusText.classList.remove('text-slate-400');
             statusText.classList.add('text-neonCyan', 'font-bold');
             loadingMsg.textContent = "ACCESS GRANTED. ENTERING PORTAL...";
 
-            // Trigger modal exit animation and smoothly reveal main content
             setTimeout(() => {
                 modal.classList.add('modal-exit');
                 setTimeout(() => {
                     modal.style.display = 'none';
                     mainContent.classList.remove('opacity-0');
                     mainContent.classList.add('fade-scale-in');
+                    loadRequests(); // Load initial requests
                 }, 500);
             }, 900);
         });
 
-        // Guaranteed smooth scroll handler for the Explore Packages button
+        // Smooth scroll for explore button
         const exploreBtn = document.getElementById('explore-btn');
         if (exploreBtn) {
             exploreBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetSection = document.getElementById('packages');
                 if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         }
 
-        // FAQ Accordion Toggle Script
-        document.querySelectorAll('.faq-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const symbol = button.querySelector('span:last-child');
-                
-                // Toggle current FAQ panel
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                    symbol.textContent = '+';
-                    symbol.style.transform = 'rotate(0deg)';
+        // --- ACCOUNT & TICKET CHAT SYSTEM STATE ---
+        let currentUser = localStorage.getItem('mc_dev_user') || null;
+        let ticketStep = 0; // 0: ask package, 1: ask description, 2: ask budget/details, 3: completed
+        let ticketData = { username: '', package: '', description: '', timestamp: '' };
+
+        function checkAccount() {
+            if (!currentUser) {
+                promptAccountSetup();
+            } else {
+                document.getElementById('current-user-display').textContent = currentUser;
+            }
+        }
+
+        function promptAccountSetup() {
+            const name = prompt("Enter your Minecraft username or account name to continue:");
+            if (name && name.trim().length > 0) {
+                currentUser = name.trim();
+                localStorage.setItem('mc_dev_user', currentUser);
+                document.getElementById('current-user-display').textContent = currentUser;
+                addBotMessage(`Welcome back, ${currentUser}! I'm SMP Bot. Let's get your server development ticket created.`);
+            } else if (!currentUser) {
+                currentUser = "Player_" + Math.floor(Math.random() * 9000 + 1000);
+                localStorage.setItem('mc_dev_user', currentUser);
+                document.getElementById('current-user-display').textContent = currentUser;
+            }
+        }
+
+        function openTicketModal() {
+            checkAccount();
+            document.getElementById('ticket-modal').classList.remove('hidden');
+            resetChat();
+        }
+
+        function closeTicketModal() {
+            document.getElementById('ticket-modal').classList.add('hidden');
+        }
+
+        function selectPackage(packageName) {
+            openTicketModal();
+            ticketStep = 1;
+            ticketData.package = packageName;
+            addBotMessage(`You selected the <strong>${packageName}</strong>. Excellent choice!`);
+            addBotMessage(`Please describe your server vision or specific features you need added (e.g., custom plugins, map style, anti-cheat config):`);
+        }
+
+        function resetChat() {
+            ticketStep = 0;
+            ticketData = { username: currentUser, package: 'Basic Package ($10)', description: '', timestamp: '' };
+            const container = document.getElementById('chat-container');
+            container.innerHTML = '';
+            addBotMessage(`Hello <strong>${currentUser}</strong>! I am the SMP Development Bot. Which package or service are you interested in today? (e.g., Basic, Intermediate, Extreme, or Custom Quote)`);
+        }
+
+        function addBotMessage(html) {
+            const container = document.getElementById('chat-container');
+            const div = document.createElement('div');
+            div.className = "flex items-start gap-3";
+            div.innerHTML = `
+                <div class="w-8 h-8 rounded-xl bg-neonCyan/15 border border-neonCyan/30 flex items-center justify-center text-neonCyan font-orbitron font-bold text-xs shrink-0">BOT</div>
+                <div class="bg-cardBg border border-slate-800 rounded-2xl p-4 text-sm text-slate-300 max-w-lg">${html}</div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addUserMessage(text) {
+            const container = document.getElementById('chat-container');
+            const div = document.createElement('div');
+            div.className = "flex items-start gap-3 justify-end";
+            div.innerHTML = `
+                <div class="bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-4 text-sm text-cyan-200 max-w-lg">${text}</div>
+                <div class="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-orbitron font-bold text-xs shrink-0">YOU</div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            addUserMessage(text);
+            input.value = '';
+
+            if (ticketStep === 0) {
+                ticketData.package = text;
+                ticketStep = 1;
+                setTimeout(() => {
+                    addBotMessage(`Got it! You're looking into <strong>${ticketData.package}</strong>.`);
+                    addBotMessage(`Now, please give me a brief description of what you want built for your server:`);
+                }, 500);
+            } else if (ticketStep === 1) {
+                ticketData.description = text;
+                ticketStep = 2;
+                setTimeout(() => {
+                    addBotMessage(`Wonderful! Here is the summary of what you typed to have the server developed:`);
+                    addBotMessage(`
+                        <div class="space-y-1 text-xs font-mono bg-slate-950 p-3 rounded-xl border border-slate-800 text-slate-300">
+                            <p><strong>Account:</strong> ${currentUser}</p>
+                            <p><strong>Package:</strong> ${ticketData.package}</p>
+                            <p><strong>Details:</strong> ${ticketData.description}</p>
+                        </div>
+                        <p class="mt-3">Type <strong>"confirm"</strong> to submit this ticket to Firebase, or type <strong>"cancel"</strong> to restart.</p>
+                    `);
+                }, 600);
+            } else if (ticketStep === 2) {
+                if (text.toLowerCase().includes('confirm')) {
+                    ticketData.timestamp = new Date().toLocaleString();
+                    ticketData.username = currentUser;
+                    ticketData.status = 'Open';
+
+                    addBotMessage(`Submitting your development ticket to Firebase... ⏳`);
+
+                    // Send to Firebase RTDB
+                    fetch(FIREBASE_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(ticketData),
+                        headers: { 'Content-Type': 'application/json' }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            addBotMessage(`🎉 <strong>Success!</strong> Your ticket has been created and saved to Firebase. Our staff team will review your server request shortly.`);
+                            ticketStep = 3;
+                            loadRequests();
+                        } else {
+                            addBotMessage(`⚠️ Error saving ticket to Firebase. Please try again.`);
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        addBotMessage(`⚠️ Network error connecting to Firebase.`);
+                    });
+                } else if (text.toLowerCase().includes('cancel')) {
+                    resetChat();
                 } else {
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                    symbol.textContent = '-';
-                    symbol.style.transform = 'rotate(180deg)';
+                    addBotMessage(`Please type <strong>"confirm"</strong> to submit or <strong>"cancel"</strong> to start over.`);
                 }
+            } else if (ticketStep === 3) {
+                addBotMessage(`Your ticket is already submitted! You can close this window or type "new" to open another ticket.`);
+                if (text.toLowerCase().includes('new')) {
+                    resetChat();
+                }
+            }
+        }
+
+        // --- FETCH & DISPLAY DEVELOPMENT REQUESTS FROM FIREBASE ---
+        function loadRequests() {
+            const grid = document.getElementById('requests-grid');
+            grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-400 text-sm col-span-full">Fetching requests from Firebase...</div>`;
+
+            fetch(FIREBASE_URL)
+            .then(res => res.json())
+            .then(data => {
+                grid.innerHTML = '';
+                if (!data) {
+                    grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-500 text-sm col-span-full">No active development requests found in Firebase yet. Be the first to open a ticket!</div>`;
+                    return;
+                }
+
+                const keys = Object.keys(data).reverse(); // Most recent first
+                keys.forEach(key => {
+                    const req = data[key];
+                    const card = document.createElement('div');
+                    card.className = "bg-cardBg border border-slate-800 hover:border-cyan-500/40 rounded-2xl p-6 transition-all shadow-lg flex flex-col justify-between";
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="px-2.5 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-orbitron font-bold rounded-lg">${req.package || 'Custom Request'}</span>
+                                <span class="text-[10px] text-slate-500">${req.timestamp || 'Recent'}</span>
+                            </div>
+                            <h4 class="font-orbitron font-bold text-white text-base mb-1">Client: ${req.username || 'Anonymous'}</h4>
+                            <p class="text-xs text-slate-300 mt-2 line-clamp-3 bg-slate-950 p-3 rounded-xl border border-slate-800/80">"${req.description || 'No description provided.'}"</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
+                            <span class="text-emerald-400 font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ${req.status || 'Open'}</span>
+                            <span class="text-slate-500 font-mono text-[10px]">ID: ${key.slice(-6)}</span>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-red-400 text-sm col-span-full">Failed to load requests from Firebase RTDB.</div>`;
             });
-        });
+        }
+
+        // --- STAFF PORTAL LOGIC ---
+        function openStaffModal() {
+            document.getElementById('staff-modal').classList.remove('hidden');
+            document.getElementById('staff-pin-input').value = '';
+            document.getElementById('pin-error').textContent = '';
+            document.getElementById('staff-pin-view').classList.remove('hidden');
+            document.getElementById('staff-dashboard-view').classList.add('hidden');
+        }
+
+        function closeStaffModal() {
+            document.getElementById('staff-modal').classList.add('hidden');
+        }
+
+        function verifyStaffPin(e) {
+            e.preventDefault();
+            const pin = document.getElementById('staff-pin-input').value;
+            const err = document.getElementById('pin-error');
+
+            if (pin === "4976") {
+                document.getElementById('staff-pin-view').classList.add('hidden');
+                document.getElementById('staff-dashboard-view').classList.remove('hidden');
+                loadStaffRequests();
+            } else {
+                err.textContent = "Incorrect PIN. Access Denied.";
+                document.getElementById('staff-pin-input').value = '';
+            }
+        }
+
+        function loadStaffRequests() {
+            const list = document.getElementById('staff-tickets-list');
+            list.innerHTML = `<p class="text-slate-400 text-sm">Loading staff tickets...</p>`;
+
+            fetch(FIREBASE_URL)
+            .then(res => res.json())
+            .then(data => {
+                list.innerHTML = '';
+                if (!data) {
+                    list.innerHTML = `<p class="text-slate-500 text-sm">No tickets found.</p>`;
+                    return;
+                }
+
+                const keys = Object.keys(data).reverse();
+                keys.forEach(key => {
+                    const req = data[key];
+                    const item = document.createElement('div');
+                    item.className = "bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4";
+                    item.innerHTML = `
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-bold text-white font-orbitron text-sm">${req.username}</span>
+                                <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-400 text-[10px] rounded border border-cyan-500/20">${req.package}</span>
+                            </div>
+                            <p class="text-xs text-slate-300 max-w-xl">${req.description}</p>
+                            <span class="text-[10px] text-slate-500 mt-1 block">${req.timestamp} • Firebase ID: ${key}</span>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button onclick="deleteTicket('${key}')" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-orbitron rounded-lg transition-all cursor-pointer">Delete / Close</button>
+                        </div>
+                    `;
+                    list.appendChild(item);
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                list.innerHTML = `<p class="text-red-400 text-sm">Error loading tickets from Firebase.</p>`;
+            });
+        }
+
+        function deleteTicket(firebaseKey) {
+            if (confirm("Are you sure you want to close and remove this development ticket?")) {
+                const url = `https://mcdevelopment-default-rtdb.firebaseio.com/tickets/${firebaseKey}.json`;
+                fetch(url, { method: 'DELETE' })
+                .then(res => {
+                    loadStaffRequests();
+                    loadRequests();
+                })
+                .catch(err => alert("Failed to delete ticket."));
+            }
+        }
     </script>
 </body>
 </html>
