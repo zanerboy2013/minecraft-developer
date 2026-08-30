@@ -416,7 +416,7 @@
 
             <div class="mt-6">
                 <h3 class="text-2xl font-bold tracking-wider font-orbitron text-white">PLAYER AUTHENTICATION</h3>
-                <p class="text-xs text-slate-400 mt-2">Enter your Minecraft username to link your development profile.</p>
+                <p class="text-xs text-slate-400 mt-2">Enter your Minecraft username to link your professional development profile.</p>
             </div>
 
             <form onsubmit="handleAccountSubmit(event)" class="mt-6 space-y-4">
@@ -438,8 +438,8 @@
                 <div class="flex items-center gap-3">
                     <div class="w-3 h-3 rounded-full bg-neonCyan animate-pulse"></div>
                     <div>
-                        <h3 class="font-orbitron font-bold text-white text-base" id="modal-title-text">SUPPORT & DEVELOPMENT TICKET</h3>
-                        <p class="text-[10px] text-slate-400 font-mono" id="modal-ticket-id">Active Session</p>
+                        <h3 class="font-orbitron font-bold text-white text-base" id="modal-title-text">PROFESSIONAL DEVELOPMENT TICKET</h3>
+                        <p class="text-[10px] text-slate-400 font-mono" id="modal-ticket-id">Active Questionnaire Session</p>
                     </div>
                 </div>
                 <button onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-xl font-bold cursor-pointer">&times;</button>
@@ -447,7 +447,7 @@
 
             <!-- Account Authentication Bar -->
             <div id="auth-bar" class="px-6 py-3 bg-slate-950/60 border-b border-slate-800 flex items-center justify-between text-xs">
-                <span id="auth-status" class="text-slate-400">Account: <strong class="text-neonCyan" id="current-user-display">Not Logged In</strong></span>
+                <span id="auth-status" class="text-slate-400">Client Profile: <strong class="text-neonCyan" id="current-user-display">Not Logged In</strong></span>
                 <button onclick="openAccountModal()" class="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 text-neonCyan font-orbitron rounded-lg hover:bg-cyan-500/20 cursor-pointer">Change Profile</button>
             </div>
 
@@ -484,7 +484,7 @@
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 <h4 class="font-orbitron font-bold text-xl text-white mb-2">ENTER STAFF PIN</h4>
-                <p class="text-xs text-slate-400 mb-6 max-w-sm">Please enter the 4-digit security PIN to access development tickets and management controls.</p>
+                <p class="text-xs text-slate-400 mb-6 max-w-sm">Please enter the 4-digit security PIN to access detailed client telemetry and management controls.</p>
                 
                 <form onsubmit="verifyStaffPin(event)" class="flex flex-col gap-4 w-full max-w-xs">
                     <input type="password" id="staff-pin-input" maxlength="4" placeholder="••••" class="bg-slate-950 border border-slate-700 text-center tracking-widest text-2xl font-orbitron rounded-xl py-3 text-neonCyan focus:outline-none focus:border-neonCyan" required>
@@ -497,10 +497,10 @@
             <div id="staff-dashboard-view" class="flex-1 p-6 overflow-y-auto hidden">
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h4 class="font-orbitron font-bold text-white text-lg">Incoming Tickets & Requests</h4>
-                        <p class="text-xs text-slate-400">Manage client submissions stored directly in Firebase.</p>
+                        <h4 class="font-orbitron font-bold text-white text-lg">Comprehensive Client Telemetry & Tickets</h4>
+                        <p class="text-xs text-slate-400">Detailed overview of server versions, hosting specifications, plugins, and budgets stored in Firebase.</p>
                     </div>
-                    <button onclick="loadStaffRequests()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-orbitron text-white rounded-xl transition-all cursor-pointer">Refresh List</button>
+                    <button onclick="loadStaffRequests()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-orbitron text-white rounded-xl transition-all cursor-pointer">Refresh Telemetry</button>
                 </div>
 
                 <div id="staff-tickets-list" class="space-y-4">
@@ -561,11 +561,22 @@
             });
         }
 
-        // --- ACCOUNT & TICKET CHAT SYSTEM STATE ---
+        // --- PROFESSIONAL QUESTIONNAIRE STATE ---
         let currentUser = localStorage.getItem('mc_dev_user') || null;
-        let activeTicketKey = null; // null if creating a new ticket, string if viewing existing ticket
-        let ticketStep = 0; // 0: package, 1: description, 2: confirm, 3: active live chat
-        let ticketData = { username: '', package: '', description: '', timestamp: '', messages: [] };
+        let activeTicketKey = null; 
+        let ticketStep = 0; 
+        // Professional detailed data structure for staff telemetry
+        let ticketData = { 
+            username: '', 
+            package: '', 
+            serverName: '',
+            mcVersion: '',
+            hostingProvider: '',
+            pluginRequirements: '',
+            budgetRange: '',
+            timestamp: '', 
+            messages: [] 
+        };
         let chatPollInterval = null;
 
         function checkAccount() {
@@ -627,27 +638,36 @@
                 document.getElementById('ticket-modal').classList.remove('hidden');
                 startNewTicketWizard();
                 ticketData.package = packageName;
-                ticketStep = 1;
-                appendBotMessage(document.getElementById('chat-container'), `You selected the <strong>${packageName}</strong>. Excellent choice!`);
-                appendBotMessage(document.getElementById('chat-container'), `Please describe your server vision or specific features you need added (e.g., custom plugins, map style, anti-cheat config):`);
+                ticketStep = 1; // skip initial package question since package was pre-selected
+                appendBotMessage(document.getElementById('chat-container'), `You selected the <strong>${packageName}</strong> package. Excellent choice!`);
+                appendBotMessage(document.getElementById('chat-container'), `<strong>Question 1/5:</strong> What is your desired Minecraft Server Name (e.g., NexusSMP, Kompound Network)?`);
             }
         }
 
         function startNewTicketWizard() {
             activeTicketKey = null;
             ticketStep = 0;
-            ticketData = { username: currentUser, package: ticketData.package || 'Basic Package ($10)', description: '', timestamp: '', messages: [] };
+            ticketData = { 
+                username: currentUser, 
+                package: ticketData.package || 'Basic Package ($10)', 
+                serverName: '',
+                mcVersion: '',
+                hostingProvider: '',
+                pluginRequirements: '',
+                budgetRange: '',
+                timestamp: '', 
+                messages: [] 
+            };
             
-            document.getElementById('modal-title-text').textContent = "SUPPORT & DEVELOPMENT TICKET";
-            document.getElementById('modal-ticket-id').textContent = "New Ticket Wizard";
+            document.getElementById('modal-title-text').textContent = "PROFESSIONAL DEVELOPMENT TICKET";
+            document.getElementById('modal-ticket-id').textContent = "Questionnaire Wizard";
 
             const container = document.getElementById('chat-container');
             container.innerHTML = '';
-            appendBotMessage(container, `Hello <strong>${currentUser}</strong>! I am the SMP Development Bot. Which package or service are you interested in today? (e.g., Basic, Intermediate, Extreme, or Custom Quote)`);
+            appendBotMessage(container, `Hello <strong>${currentUser}</strong>! I am the SMP Professional Development Assistant. Which service package are you interested in today? (e.g., Basic $10, Intermediate $15, Extreme $25, or Custom Tailored)`);
             if (chatPollInterval) clearInterval(chatPollInterval);
         }
 
-        // Open an existing ticket from the live feed or staff panel to chat live
         function openExistingTicket(firebaseKey, isStaff = false) {
             if (!currentUser && !isStaff) {
                 openAccountModal();
@@ -658,15 +678,15 @@
             }
 
             activeTicketKey = firebaseKey;
-            ticketStep = 3; // live chat mode
+            ticketStep = 6; // active live chat telemetry mode
             document.getElementById('ticket-modal').classList.remove('hidden');
             document.getElementById('current-user-display').textContent = currentUser;
-            document.getElementById('modal-title-text').textContent = isStaff ? "STAFF LIVE CHAT" : "YOUR TICKET CHAT";
+            document.getElementById('modal-title-text').textContent = isStaff ? "STAFF LIVE TELEMETRY CHAT" : "YOUR TICKET & CHAT";
             document.getElementById('modal-ticket-id').textContent = `ID: ${firebaseKey}`;
 
             fetchTicketMessages();
             if (chatPollInterval) clearInterval(chatPollInterval);
-            chatPollInterval = setInterval(fetchTicketMessages, 4000); // Poll for new staff/user messages
+            chatPollInterval = setInterval(fetchTicketMessages, 4000); 
         }
 
         function fetchTicketMessages() {
@@ -679,26 +699,38 @@
                 const container = document.getElementById('chat-container');
                 container.innerHTML = '';
 
-                // Show ticket info header
-                const headerDiv = document.createElement('div');
-                headerDiv.className = "bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-1 mb-4";
-                headerDiv.innerHTML = `
-                    <p class="text-cyan-400 font-bold font-orbitron">Package: ${ticket.package}</p>
-                    <p class="text-slate-300"><strong>Description:</strong> ${ticket.description}</p>
-                    <p class="text-slate-500 text-[10px]">Opened by ${ticket.username} on ${ticket.timestamp}</p>
+                // Detailed Telemetry Header Card for both User and Staff
+                const telemetryDiv = document.createElement('div');
+                telemetryDiv.className = "bg-slate-950 p-5 rounded-xl border border-slate-800 text-xs space-y-2 mb-4 shadow-inner";
+                telemetryDiv.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-neonCyan font-bold font-orbitron text-sm">📋 Project Telemetry Specification</span>
+                        <span class="text-slate-400 font-mono text-[10px]">${ticket.timestamp || ''}</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-slate-300 pt-1">
+                        <p><strong>Client:</strong> ${ticket.username}</p>
+                        <p><strong>Package Tier:</strong> ${ticket.package}</p>
+                        <p><strong>Server Name:</strong> ${ticket.serverName || 'N/A'}</p>
+                        <p><strong>MC Version:</strong> ${ticket.mcVersion || 'N/A'}</p>
+                        <p><strong>Hosting Provider:</strong> ${ticket.hostingProvider || 'N/A'}</p>
+                        <p><strong>Budget / Timeline:</strong> ${ticket.budgetRange || 'N/A'}</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-800/80">
+                        <p class="text-slate-400"><strong>Plugin/Gameplay Specifications:</strong> ${ticket.pluginRequirements || ticket.description || 'N/A'}</p>
+                    </div>
                 `;
-                container.appendChild(headerDiv);
+                container.appendChild(telemetryDiv);
 
                 if (ticket.messages && Array.isArray(ticket.messages)) {
                     ticket.messages.forEach(msg => {
                         appendChatMessage(container, msg.sender, msg.text, msg.time);
                     });
                 } else {
-                    appendBotMessage(container, `Ticket is open and active. Staff can reply here at any time.`);
+                    appendBotMessage(container, `Ticket telemetry successfully transmitted. Our developer staff will review your specifications and reply here shortly.`);
                 }
                 container.scrollTop = container.scrollHeight;
             })
-            .catch(err => console.error("Error fetching ticket messages:", err));
+            .catch(err => console.error("Error fetching ticket data:", err));
         }
 
         function appendBotMessage(container, html) {
@@ -728,9 +760,9 @@
                 `;
             } else {
                 div.innerHTML = `
-                    <div class="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 font-orbitron font-bold text-xs shrink-0">${sender.slice(0,2).toUpperCase()}</div>
+                    <div class="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-orbitron font-bold text-xs shrink-0">${sender.slice(0,2).toUpperCase()}</div>
                     <div class="bg-cardBg border border-slate-800 rounded-2xl p-4 text-sm text-slate-300 max-w-lg">
-                        <p class="text-[10px] text-purple-400 mb-1 font-orbitron">${sender}</p>
+                        <p class="text-[10px] text-emerald-400 mb-1 font-orbitron">${sender}</p>
                         ${text}
                         <span class="text-[9px] text-slate-500 block text-left mt-1">${time || ''}</span>
                     </div>
@@ -748,7 +780,7 @@
 
             const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            if (ticketStep === 3 && activeTicketKey) {
+            if (ticketStep === 6 && activeTicketKey) {
                 // Live chat message submission to Firebase
                 const url = `${FIREBASE_BASE_URL}/${activeTicketKey}.json`;
                 fetch(url)
@@ -767,11 +799,11 @@
                 .then(() => {
                     fetchTicketMessages();
                 })
-                .catch(err => console.error("Error sending message:", err));
+                .catch(err => console.error("Error sending telemetry message:", err));
                 return;
             }
 
-            // Wizard steps
+            // Professional Questionnaire Wizard Steps
             const container = document.getElementById('chat-container');
             
             // Add user message to UI
@@ -788,33 +820,67 @@
                 ticketData.package = text;
                 ticketStep = 1;
                 setTimeout(() => {
-                    appendBotMessage(container, `Got it! You're looking into <strong>${ticketData.package}</strong>.`);
-                    appendBotMessage(container, `Now, please give me a brief description of what you want built for your server:`);
+                    appendBotMessage(container, `Package noted: <strong>${ticketData.package}</strong>.`);
+                    appendBotMessage(container, `<strong>Question 1/5:</strong> What is your desired Minecraft Server Name (e.g., NexusSMP, Kompound Network)?`);
                 }, 500);
             } else if (ticketStep === 1) {
-                ticketData.description = text;
+                ticketData.serverName = text;
                 ticketStep = 2;
                 setTimeout(() => {
-                    appendBotMessage(container, `Wonderful! Here is the summary of what you typed to have the server developed:`);
+                    appendBotMessage(container, `Server Name recorded: <strong>${ticketData.serverName}</strong>.`);
+                    appendBotMessage(container, `<strong>Question 2/5:</strong> What target Minecraft version and software platform do you prefer (e.g., Paper 1.21.4, Spigot, Geyser Cross-play)?`);
+                }, 500);
+            } else if (ticketStep === 2) {
+                ticketData.mcVersion = text;
+                ticketStep = 3;
+                setTimeout(() => {
+                    appendBotMessage(container, `Version/Platform logged: <strong>${ticketData.mcVersion}</strong>.`);
+                    appendBotMessage(container, `<strong>Question 3/5:</strong> Which hosting provider are you utilizing for this server (e.g., Folium Hosting, Pterodactyl panel, dedicated VPS, or free hosts)?`);
+                }, 500);
+            } else if (ticketStep === 3) {
+                ticketData.hostingProvider = text;
+                ticketStep = 4;
+                setTimeout(() => {
+                    appendBotMessage(container, `Hosting environment registered: <strong>${ticketData.hostingProvider}</strong>.`);
+                    appendBotMessage(container, `<strong>Question 4/5:</strong> Provide a detailed specification of required plugins, economy systems, land claims, anti-cheat, custom menus, or web shops:`);
+                }, 500);
+            } else if (ticketStep === 4) {
+                ticketData.pluginRequirements = text;
+                ticketStep = 5;
+                setTimeout(() => {
+                    appendBotMessage(container, `Specifications logged.`);
+                    appendBotMessage(container, `<strong>Question 5/5:</strong> What is your anticipated launch timeline and target budget flexibility?`);
+                }, 500);
+            } else if (ticketStep === 5) {
+                ticketData.budgetRange = text;
+                ticketStep = 6; // ready to confirm telemetry
+                setTimeout(() => {
+                    appendBotMessage(container, `Wonderful! Here is the complete professional project telemetry sheet generated for our staff review:`);
                     appendBotMessage(container, `
-                        <div class="space-y-1 text-xs font-mono bg-slate-950 p-3 rounded-xl border border-slate-800 text-slate-300">
-                            <p><strong>Account:</strong> ${currentUser}</p>
-                            <p><strong>Package:</strong> ${ticketData.package}</p>
-                            <p><strong>Details:</strong> ${ticketData.description}</p>
+                        <div class="space-y-1.5 text-xs font-mono bg-slate-950 p-4 rounded-xl border border-slate-800 text-slate-300">
+                            <p class="text-neonCyan font-bold">PROJECT SPECIFICATION REPORT</p>
+                            <p><strong>Client:</strong> ${currentUser}</p>
+                            <p><strong>Package Tier:</strong> ${ticketData.package}</p>
+                            <p><strong>Server Name:</strong> ${ticketData.serverName}</p>
+                            <p><strong>MC Version:</strong> ${ticketData.mcVersion}</p>
+                            <p><strong>Hosting Provider:</strong> ${ticketData.hostingProvider}</p>
+                            <p><strong>Specifications:</strong> ${ticketData.pluginRequirements}</p>
+                            <p><strong>Budget / Timeline:</strong> ${ticketData.budgetRange}</p>
                         </div>
-                        <p class="mt-3">Type <strong>"confirm"</strong> to submit this ticket to Firebase, or type <strong>"cancel"</strong> to restart.</p>
+                        <p class="mt-3">Type <strong>"confirm"</strong> to transmit this telemetry to Firebase, or type <strong>"cancel"</strong> to restart.</p>
                     `);
                 }, 600);
-            } else if (ticketStep === 2) {
+            } else if (ticketStep === 6) {
                 if (text.toLowerCase().includes('confirm')) {
                     ticketData.timestamp = new Date().toLocaleString();
                     ticketData.username = currentUser;
                     ticketData.status = 'Open';
+                    ticketData.description = ticketData.pluginRequirements; // for backward compatibility
                     ticketData.messages = [
-                        { sender: "Bot", text: `Ticket created for ${ticketData.package}. Description: ${ticketData.description}`, time: timeStr }
+                        { sender: "System Bot", text: `Professional ticket created for ${ticketData.serverName} (${ticketData.package}). Telemetry locked.`, time: timeStr }
                     ];
 
-                    appendBotMessage(container, `Submitting your development ticket to Firebase... ⏳`);
+                    appendBotMessage(container, `Transmitting professional project telemetry to Firebase RTDB... ⏳`);
 
                     // Send to Firebase RTDB
                     fetch(`${FIREBASE_BASE_URL}.json`, {
@@ -826,24 +892,24 @@
                     .then(resData => {
                         if (resData && resData.name) {
                             activeTicketKey = resData.name;
-                            appendBotMessage(container, `🎉 <strong>Success!</strong> Your ticket has been created and saved to Firebase. You can now chat live with staff right here.`);
-                            ticketStep = 3;
+                            appendBotMessage(container, `🎉 <strong>Telemetry Confirmed!</strong> Your development ticket has been successfully created. You and our development staff can now exchange real-time messages right here.`);
+                            ticketStep = 6; // active chat
                             document.getElementById('modal-ticket-id').textContent = `ID: ${activeTicketKey}`;
                             loadRequests();
                             if (chatPollInterval) clearInterval(chatPollInterval);
                             chatPollInterval = setInterval(fetchTicketMessages, 4000);
                         } else {
-                            appendBotMessage(container, `⚠️ Error saving ticket to Firebase. Please check database rules.`);
+                            appendBotMessage(container, `⚠️ Error saving ticket to Firebase. Please check database rules (.read/.write: true).`);
                         }
                     })
                     .catch(err => {
                         console.error(err);
-                        appendBotMessage(container, `⚠️ Network error connecting to Firebase.`);
+                        appendBotMessage(container, `⚠️ Network error connecting to Firebase endpoint.`);
                     });
                 } else if (text.toLowerCase().includes('cancel')) {
                     startNewTicketWizard();
                 } else {
-                    appendBotMessage(container, `Please type <strong>"confirm"</strong> to submit or <strong>"cancel"</strong> to start over.`);
+                    appendBotMessage(container, `Please type <strong>"confirm"</strong> to submit your project specification or <strong>"cancel"</strong> to restart.`);
                 }
             }
         }
@@ -874,12 +940,16 @@
                                 <span class="px-2.5 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-orbitron font-bold rounded-lg">${req.package || 'Custom Request'}</span>
                                 <span class="text-[10px] text-slate-500">${req.timestamp || 'Recent'}</span>
                             </div>
-                            <h4 class="font-orbitron font-bold text-white text-base mb-1 group-hover:text-neonCyan transition-colors">Client: ${req.username || 'Anonymous'}</h4>
-                            <p class="text-xs text-slate-300 mt-2 line-clamp-3 bg-slate-950 p-3 rounded-xl border border-slate-800/80">"${req.description || 'No description provided.'}"</p>
+                            <h4 class="font-orbitron font-bold text-white text-base mb-1 group-hover:text-neonCyan transition-colors">${req.serverName ? req.serverName : 'Server'} (${req.username})</h4>
+                            <div class="mt-2 space-y-1 text-xs text-slate-300 bg-slate-950 p-3 rounded-xl border border-slate-800/80 font-mono">
+                                <p><strong>Version:</strong> ${req.mcVersion || 'Standard'}</p>
+                                <p><strong>Hosting:</strong> ${req.hostingProvider || 'Standard'}</p>
+                                <p class="line-clamp-2"><strong>Specs:</strong> ${req.pluginRequirements || req.description || 'N/A'}</p>
+                            </div>
                         </div>
                         <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
                             <span class="text-emerald-400 font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ${req.status || 'Open'}</span>
-                            <span class="text-neonCyan font-orbitron text-[11px] group-hover:underline">Open Chat →</span>
+                            <span class="text-neonCyan font-orbitron text-[11px] group-hover:underline">Open Live Chat →</span>
                         </div>
                     `;
                     grid.appendChild(card);
@@ -887,7 +957,7 @@
             })
             .catch(err => {
                 console.error(err);
-                grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-red-400 text-sm col-span-full">Failed to load requests from Firebase RTDB. Check your database URL and rules.</div>`;
+                grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-red-400 text-sm col-span-full">Failed to load requests from Firebase RTDB. Verify your database URL and security rules.</div>`;
             });
         }
 
@@ -921,7 +991,7 @@
 
         function loadStaffRequests() {
             const list = document.getElementById('staff-tickets-list');
-            list.innerHTML = `<p class="text-slate-400 text-sm">Loading staff tickets...</p>`;
+            list.innerHTML = `<p class="text-slate-400 text-sm">Loading comprehensive telemetry records...</p>`;
 
             fetch(`${FIREBASE_BASE_URL}.json`)
             .then(res => res.json())
@@ -936,19 +1006,25 @@
                 keys.forEach(key => {
                     const req = data[key];
                     const item = document.createElement('div');
-                    item.className = "bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4";
+                    item.className = "bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4";
                     item.innerHTML = `
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="font-bold text-white font-orbitron text-sm">${req.username}</span>
-                                <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-400 text-[10px] rounded border border-cyan-500/20">${req.package}</span>
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-white font-orbitron text-sm">${req.serverName || 'Unnamed Server'}</span>
+                                <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-400 text-[10px] rounded border border-cyan-500/20 font-mono">${req.package}</span>
                             </div>
-                            <p class="text-xs text-slate-300 max-w-xl">${req.description}</p>
-                            <span class="text-[10px] text-slate-500 mt-1 block">${req.timestamp} • Firebase ID: ${key}</span>
+                            <div class="text-xs text-slate-300 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 font-mono">
+                                <p><strong>Client:</strong> ${req.username}</p>
+                                <p><strong>Version:</strong> ${req.mcVersion || 'N/A'}</p>
+                                <p><strong>Hosting:</strong> ${req.hostingProvider || 'N/A'}</p>
+                                <p><strong>Budget:</strong> ${req.budgetRange || 'N/A'}</p>
+                            </div>
+                            <p class="text-xs text-slate-400 pt-1"><strong>Specs:</strong> ${req.pluginRequirements || req.description || 'N/A'}</p>
+                            <span class="text-[10px] text-slate-500 block pt-1">${req.timestamp} • Firebase ID: ${key}</span>
                         </div>
                         <div class="flex items-center gap-2 shrink-0">
-                            <button onclick="closeStaffModal(); openExistingTicket('${key}', true);" class="px-3 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-orbitron rounded-xl transition-all cursor-pointer">Open Chat / Reply</button>
-                            <button onclick="deleteTicket('${key}')" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-orbitron rounded-xl transition-all cursor-pointer">Delete</button>
+                            <button onclick="closeStaffModal(); openExistingTicket('${key}', true);" class="px-3.5 py-2 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-orbitron rounded-xl transition-all cursor-pointer">Staff Chat / Reply</button>
+                            <button onclick="deleteTicket('${key}')" class="px-3.5 py-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 text-xs font-orbitron rounded-xl transition-all cursor-pointer">Close Ticket</button>
                         </div>
                     `;
                     list.appendChild(item);
