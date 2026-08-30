@@ -407,6 +407,29 @@
 
     </div>
 
+    <!-- STYLISH ACCOUNT / LOGIN MODAL -->
+    <div id="account-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden">
+        <div class="relative w-full max-w-md mx-4 p-8 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl shadow-cyan-500/10 text-center fade-scale-in">
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-20 h-20 bg-gradient-to-tr from-cyan-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg shadow-cyan-500/30 border border-white/20">
+                <svg class="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+
+            <div class="mt-6">
+                <h3 class="text-2xl font-bold tracking-wider font-orbitron text-white">PLAYER AUTHENTICATION</h3>
+                <p class="text-xs text-slate-400 mt-2">Enter your Minecraft username to link your development profile.</p>
+            </div>
+
+            <form onsubmit="handleAccountSubmit(event)" class="mt-6 space-y-4">
+                <div class="relative">
+                    <input type="text" id="account-username-input" placeholder="e.g. Notch or Steve" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3.5 text-sm text-slate-100 font-orbitron text-center focus:outline-none focus:border-neonCyan transition-colors" autocomplete="off" required>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-bold font-orbitron text-sm rounded-xl transition-all shadow-lg shadow-cyan-500/20 cursor-pointer">
+                    Link Profile & Continue
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- TICKET & CHAT SYSTEM MODAL -->
     <div id="ticket-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
         <div class="relative w-full max-w-2xl mx-4 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[85vh] fade-scale-in">
@@ -422,7 +445,7 @@
             <!-- Account Authentication Bar -->
             <div id="auth-bar" class="px-6 py-3 bg-slate-950/60 border-b border-slate-800 flex items-center justify-between text-xs">
                 <span id="auth-status" class="text-slate-400">Account: <strong class="text-neonCyan" id="current-user-display">Not Logged In</strong></span>
-                <button onclick="promptAccountSetup()" class="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 text-neonCyan font-orbitron rounded-lg hover:bg-cyan-500/20 cursor-pointer">Change Account</button>
+                <button onclick="openAccountModal()" class="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 text-neonCyan font-orbitron rounded-lg hover:bg-cyan-500/20 cursor-pointer">Change Profile</button>
             </div>
 
             <!-- Chat & Bot Interface Body -->
@@ -542,30 +565,47 @@
 
         function checkAccount() {
             if (!currentUser) {
-                promptAccountSetup();
+                openAccountModal();
             } else {
                 document.getElementById('current-user-display').textContent = currentUser;
             }
         }
 
-        function promptAccountSetup() {
-            const name = prompt("Enter your Minecraft username or account name to continue:");
-            if (name && name.trim().length > 0) {
-                currentUser = name.trim();
+        function openAccountModal() {
+            document.getElementById('account-modal').classList.remove('hidden');
+            const input = document.getElementById('account-username-input');
+            if (currentUser) input.value = currentUser;
+            input.focus();
+        }
+
+        function closeAccountModal() {
+            document.getElementById('account-modal').classList.add('hidden');
+        }
+
+        function handleAccountSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('account-username-input');
+            const name = input.value.trim();
+            if (name) {
+                currentUser = name;
                 localStorage.setItem('mc_dev_user', currentUser);
                 document.getElementById('current-user-display').textContent = currentUser;
-                addBotMessage(`Welcome back, ${currentUser}! I'm SMP Bot. Let's get your server development ticket created.`);
-            } else if (!currentUser) {
-                currentUser = "Player_" + Math.floor(Math.random() * 9000 + 1000);
-                localStorage.setItem('mc_dev_user', currentUser);
-                document.getElementById('current-user-display').textContent = currentUser;
+                closeAccountModal();
+                
+                // If ticket modal isn't open, open it
+                document.getElementById('ticket-modal').classList.remove('hidden');
+                resetChat();
             }
         }
 
         function openTicketModal() {
-            checkAccount();
-            document.getElementById('ticket-modal').classList.remove('hidden');
-            resetChat();
+            if (!currentUser) {
+                openAccountModal();
+            } else {
+                document.getElementById('current-user-display').textContent = currentUser;
+                document.getElementById('ticket-modal').classList.remove('hidden');
+                resetChat();
+            }
         }
 
         function closeTicketModal() {
@@ -573,16 +613,27 @@
         }
 
         function selectPackage(packageName) {
-            openTicketModal();
-            ticketStep = 1;
-            ticketData.package = packageName;
-            addBotMessage(`You selected the <strong>${packageName}</strong>. Excellent choice!`);
-            addBotMessage(`Please describe your server vision or specific features you need added (e.g., custom plugins, map style, anti-cheat config):`);
+            if (!currentUser) {
+                openAccountModal();
+                // Store selected package temporarily
+                ticketData.package = packageName;
+            } else {
+                openTicketModal();
+                ticketStep = 1;
+                ticketData.package = packageName;
+                addBotMessage(`You selected the <strong>${packageName}</strong>. Excellent choice!`);
+                addBotMessage(`Please describe your server vision or specific features you need added (e.g., custom plugins, map style, anti-cheat config):`);
+            }
         }
 
         function resetChat() {
             ticketStep = 0;
-            ticketData = { username: currentUser, package: 'Basic Package ($10)', description: '', timestamp: '' };
+            if (!ticketData.package) {
+                ticketData.package = 'Basic Package ($10)';
+            }
+            ticketData.username = currentUser;
+            ticketData.description = '';
+            
             const container = document.getElementById('chat-container');
             container.innerHTML = '';
             addBotMessage(`Hello <strong>${currentUser}</strong>! I am the SMP Development Bot. Which package or service are you interested in today? (e.g., Basic, Intermediate, Extreme, or Custom Quote)`);
