@@ -373,23 +373,23 @@
             </div>
         </section>
 
-        <!-- LIVE DEVELOPMENT REQUESTS SECTION (FROM FIREBASE) -->
+        <!-- SECURE MY TICKETS SECTION (FROM FIREBASE) -->
         <section class="py-16 px-6 max-w-7xl mx-auto border-t border-slate-800/80 bg-darkBg">
             <div class="flex justify-between items-center mb-8">
                 <div>
-                    <span class="text-xs uppercase tracking-widest text-neonCyan font-orbitron font-bold">Live Feed</span>
-                    <h3 class="text-2xl font-extrabold font-orbitron text-white mt-1">Active Development Requests</h3>
+                    <span class="text-xs uppercase tracking-widest text-neonCyan font-orbitron font-bold">Your Account Feed</span>
+                    <h3 class="text-2xl font-extrabold font-orbitron text-white mt-1">Your Active Development Tickets</h3>
                 </div>
                 <button onclick="loadRequests()" class="px-4 py-2 bg-slate-900 border border-slate-700 hover:border-cyan-500 text-xs font-orbitron text-cyan-400 rounded-xl transition-all cursor-pointer flex items-center gap-2">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    Refresh Feed
+                    Refresh My Tickets
                 </button>
             </div>
 
             <div id="requests-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Populated dynamically via JS from Firebase -->
+                <!-- Populated dynamically via JS from Firebase (secured to logged-in user) -->
                 <div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-500 text-sm col-span-full">
-                    Loading development requests from Firebase...
+                    Please log in to view your tickets.
                 </div>
             </div>
         </section>
@@ -416,7 +416,7 @@
 
             <div class="mt-6">
                 <h3 class="text-2xl font-bold tracking-wider font-orbitron text-white">PLAYER AUTHENTICATION</h3>
-                <p class="text-xs text-slate-400 mt-2">Enter your Minecraft username and Gmail to access development tickets.</p>
+                <p class="text-xs text-slate-400 mt-2">Enter your Minecraft username and Gmail to access your private tickets.</p>
             </div>
 
             <form onsubmit="handleAccountSubmit(event)" class="mt-6 space-y-4 text-left">
@@ -654,7 +654,7 @@
 
             if (currentUser) userInput.value = currentUser;
             if (currentEmail) emailInput.value = currentEmail;
-            tosCheck.checked = !!currentUser; // if already logged in, assume TOS agreed
+            tosCheck.checked = !!currentUser; 
             annCheck.checked = announcementsOptIn;
             userInput.focus();
         }
@@ -686,6 +686,7 @@
 
                 updateAuthDisplay();
                 closeAccountModal();
+                loadRequests(); // Refresh secure user feed
                 
                 document.getElementById('ticket-modal').classList.remove('hidden');
                 startNewTicketWizard();
@@ -702,6 +703,7 @@
             
             updateAuthDisplay();
             closeTicketModal();
+            loadRequests(); // Clear user feed
             openAccountModal();
         }
 
@@ -774,26 +776,48 @@
             if (chatPollInterval) clearInterval(chatPollInterval);
         }
 
+        // SECURE TICKET OPENING: Verifies ownership before granting access
         function openExistingTicket(firebaseKey, isStaff = false) {
             if (!currentUser && !isStaff) {
                 openAccountModal();
                 return;
             }
-            if (isStaff && !currentUser) {
-                currentUser = "Staff";
-                currentEmail = "staff@mcserver.dev";
-            }
 
-            activeTicketKey = firebaseKey;
-            ticketStep = 8; 
-            document.getElementById('ticket-modal').classList.remove('hidden');
-            updateAuthDisplay();
-            document.getElementById('modal-title-text').textContent = isStaff ? "STAFF LIVE TELEMETRY CHAT" : "YOUR TICKET & LIVE CHAT";
-            document.getElementById('modal-ticket-id').textContent = `ID: ${firebaseKey}`;
+            // Fetch and verify ownership from Firebase before opening chat
+            const url = `${FIREBASE_BASE_URL}/${firebaseKey}.json`;
+            fetch(url)
+            .then(res => res.json())
+            .then(ticket => {
+                if (!ticket) {
+                    alert("Ticket not found.");
+                    return;
+                }
 
-            fetchTicketMessages();
-            if (chatPollInterval) clearInterval(chatPollInterval);
-            chatPollInterval = setInterval(fetchTicketMessages, 4000); 
+                if (!isStaff && ticket.username !== currentUser) {
+                    alert("⚠️ Access Denied: You can only view and chat in your own tickets!");
+                    return;
+                }
+
+                if (isStaff && !currentUser) {
+                    currentUser = "Staff";
+                    currentEmail = "staff@mcserver.dev";
+                }
+
+                activeTicketKey = firebaseKey;
+                ticketStep = 8; 
+                document.getElementById('ticket-modal').classList.remove('hidden');
+                updateAuthDisplay();
+                document.getElementById('modal-title-text').textContent = isStaff ? "STAFF LIVE TELEMETRY CHAT" : "YOUR PRIVATE TICKET & LIVE CHAT";
+                document.getElementById('modal-ticket-id').textContent = `ID: ${firebaseKey}`;
+
+                fetchTicketMessages();
+                if (chatPollInterval) clearInterval(chatPollInterval);
+                chatPollInterval = setInterval(fetchTicketMessages, 4000); 
+            })
+            .catch(err => {
+                console.error("Error verifying ticket ownership:", err);
+                alert("Failed to access ticket.");
+            });
         }
 
         function fetchTicketMessages() {
@@ -810,7 +834,7 @@
                 telemetryDiv.className = "bg-slate-950 p-5 rounded-xl border border-slate-800 text-xs space-y-2 mb-4 shadow-inner";
                 telemetryDiv.innerHTML = `
                     <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <span class="text-neonCyan font-bold font-orbitron text-sm">📋 7-Point Project Telemetry Specification</span>
+                        <span class="text-neonCyan font-bold font-orbitron text-sm">🔒 Private 7-Point Project Telemetry</span>
                         <span class="text-slate-400 font-mono text-[10px]">${ticket.timestamp || ''}</span>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-slate-300 pt-1 font-mono">
@@ -1040,22 +1064,36 @@
             }
         }
 
-        // --- FETCH & DISPLAY DEVELOPMENT REQUESTS FROM FIREBASE ---
+        // --- FETCH & DISPLAY ONLY LOGGED-IN USER'S TICKETS (PRIVATE FEED) ---
         function loadRequests() {
             const grid = document.getElementById('requests-grid');
-            grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-400 text-sm col-span-full">Fetching requests from Firebase...</div>`;
+            
+            if (!currentUser) {
+                grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-400 text-sm col-span-full">Please log in to view your private development tickets.</div>`;
+                return;
+            }
+
+            grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-400 text-sm col-span-full">Fetching your private tickets from Firebase...</div>`;
 
             fetch(`${FIREBASE_BASE_URL}.json`)
             .then(res => res.json())
             .then(data => {
                 grid.innerHTML = '';
                 if (!data) {
-                    grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-500 text-sm col-span-full">No active development requests found in Firebase yet. Be the first to open a ticket!</div>`;
+                    grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-500 text-sm col-span-full">You have no active development tickets. Click <strong>Open Ticket</strong> above!</div>`;
                     return;
                 }
 
                 const keys = Object.keys(data).reverse(); 
-                keys.forEach(key => {
+                // FILTER: Only show tickets belonging to the currently logged in user
+                const userKeys = keys.filter(key => data[key].username === currentUser);
+
+                if (userKeys.length === 0) {
+                    grid.innerHTML = `<div class="bg-cardBg border border-slate-800 p-6 rounded-xl text-center text-slate-500 text-sm col-span-full">You have no active tickets yet. Open one to start chatting with developers!</div>`;
+                    return;
+                }
+
+                userKeys.forEach(key => {
                     const req = data[key];
                     const card = document.createElement('div');
                     card.className = "bg-cardBg border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all shadow-lg flex flex-col justify-between cursor-pointer group";
@@ -1075,7 +1113,7 @@
                         </div>
                         <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
                             <span class="text-emerald-400 font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ${req.status || 'Open'}</span>
-                            <span class="text-neonCyan font-orbitron text-[11px] group-hover:underline">Open Live Chat →</span>
+                            <span class="text-neonCyan font-orbitron text-[11px] group-hover:underline">Open Private Chat →</span>
                         </div>
                     `;
                     grid.appendChild(card);
